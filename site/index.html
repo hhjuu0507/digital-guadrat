@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>방형구 식물 조사 결과</title>
+  <meta name="description" content="20cm × 20cm 방형구 사진을 AI로 분석한 식물 종류와 초록색 비율 조사 결과 (열람 전용)">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#16a34a">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2316a34a'/%3E%3Cpath d='M16 25v-8m0 0c0-4 3-6 7-6 0 4-3 6-7 6zm0 0c0-3-2-5-6-5 0 3 2 5 6 5z' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="app-header">
+    <div class="header-inner">
+      <div class="logo" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 20h10"/><path d="M10 20c5.5-2.5.8-6.4 3-10"/><path d="M9.5 9.4c1.1.8 1.8 2.2 2.3 3.7-2 .4-3.5.4-4.8-.3-1.2-.6-2.3-1.9-3-4.2 2.8-.5 4.4 0 5.5.8z"/><path d="M14.1 6a7 7 0 0 0-1.1 4c1.9-.1 3.3-.6 4.3-1.4 1-1 1.6-2.3 1.7-4.6-2.7.1-4 1-4.9 2z"/></svg>
+      </div>
+      <div>
+        <h1>방형구 식물 조사 결과</h1>
+        <p id="subtitle">20cm × 20cm 방형구 사진으로 식물 종류와 초록색 비율을 AI로 분석했어요</p>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <noscript><div class="empty">이 페이지를 보려면 JavaScript를 켜 주세요.</div></noscript>
+
+    <p class="notice">
+      <strong>열람 전용 페이지</strong> · 수업 시간에 학생들이 제출한 방형구 사진의 분석 결과를 모아 둔 곳이에요.
+      학생 개인정보 보호를 위해 이름과 학번 일부를 가렸어요.
+    </p>
+
+    <section class="card" aria-labelledby="summary-title">
+      <h2 id="summary-title" class="card-title">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v16a2 2 0 0 0 2 2h16"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg>
+        조사 요약
+      </h2>
+      <div id="tiles" class="tiles"></div>
+
+      <h3 class="sub-title">조 × Site별 제출 현황</h3>
+      <p class="muted small">칸이 진할수록 제출이 많아요. 아래 숫자는 제출 수와, 이름을 알아낸 식물 종 수예요.</p>
+      <div class="table-wrap"><div id="matrix"></div></div>
+
+      <h3 class="sub-title">많이 나온 식물</h3>
+      <p class="muted small" id="top-note"></p>
+      <div id="top-species" class="barlist"></div>
+    </section>
+
+    <section aria-labelledby="list-title">
+      <div class="list-head">
+        <h2 id="list-title" class="list-title">
+          <svg class="ico leaf" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
+          제출된 방형구 목록
+        </h2>
+        <a class="btn-outline" href="results-masked.xlsx" download="방형구_식물조사_결과(이름가림).xlsx">
+          <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M8 13h2"/><path d="M14 13h2"/><path d="M8 17h2"/><path d="M14 17h2"/></svg>
+          엑셀 다운로드
+        </a>
+      </div>
+
+      <div class="filters">
+        <div class="filter">
+          <label for="f-group">조</label>
+          <div class="select-wrap"><select id="f-group"><option value="">전체</option></select></div>
+        </div>
+        <div class="filter">
+          <label for="f-site">Site</label>
+          <div class="select-wrap"><select id="f-site"><option value="">전체</option></select></div>
+        </div>
+        <div class="filter">
+          <label for="f-status">상태</label>
+          <div class="select-wrap"><select id="f-status"><option value="">전체</option></select></div>
+        </div>
+        <div class="filter grow">
+          <label for="f-search">식물 검색</label>
+          <input id="f-search" type="search" placeholder="식물 이름 또는 학명 (예: 토끼풀, Trifolium)" autocomplete="off">
+        </div>
+      </div>
+      <p id="count" class="count" aria-live="polite"></p>
+
+      <div id="list"></div>
+    </section>
+
+    <footer class="foot">
+      식물 이름과 초록색 비율은 Pl@ntNet AI와 사진 속 초록색 픽셀 비율로 얻은 <strong>참고용 값</strong>이라 실제와 다를 수 있어요.
+      '미확인 식물'은 AI가 확신하지 못한 경우이고, 이때 표시된 학명은 가장 가까운 추정값이에요.
+    </footer>
+  </main>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
